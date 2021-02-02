@@ -5,7 +5,7 @@ const Blog = require('./models/blog');
 
 const app = express();
 
-const dbURL = 'mongodb+srv://cakdol:Kontoy123@lth-mongodb.5q13r.mongodb.net/lth-mongodb?retryWrites=true&w=majority'
+const dbURL = 'mongodb+srv://cakdol:Kontoy123@lth-mongodb.5q13r.mongodb.net/lth-mongodb?retryWrites=true&w=majority';
 mongoose.connect(dbURL,{ useNewUrlParser: true, useUnifiedTopology: true })
     .then(()=>app.listen(3000,()=>{
         console.log('Server running...')
@@ -83,7 +83,7 @@ app.get('/blogs/:id',(req,res)=>{
     const id = req.params.id;
     Blog.findById(id)
         .then((result)=>{
-            console.log(result);
+            res.render('detail',{blog: result});
         })
         .catch((err)=>{
             console.log(err);
