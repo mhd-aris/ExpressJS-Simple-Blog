@@ -5,12 +5,13 @@ const Blog = require('./models/blog');
 
 const app = express();
 
-const dbURL = 'mongodb+srv://mhdaris:Kontoy123@lth-mongodb.5q13r.mongodb.net/lth-mongodb?retryWrites=true&w=majority'
+const dbURL = 'mongodb+srv://cakdol:Kontoy123@lth-mongodb.5q13r.mongodb.net/lth-mongodb?retryWrites=true&w=majority'
 mongoose.connect(dbURL,{ useNewUrlParser: true, useUnifiedTopology: true })
     .then(()=>app.listen(3000,()=>{
         console.log('Server running...')
     }))
     .catch((err) => console.log(err));
+    
     
 app.set('view engine', 'ejs');
 
