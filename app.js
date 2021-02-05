@@ -3,15 +3,15 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const Blog = require('./models/blog');
 
+
 const app = express();
 
-const dbURL = 'mongodb+srv://cakdol:Kontoy123@lth-mongodb.5q13r.mongodb.net/lth-mongodb?retryWrites=true&w=majority';
+const dbURL = 'mongodb://cakdol:Kontoy123@lth-mongodb-shard-00-00.5q13r.mongodb.net:27017,lth-mongodb-shard-00-01.5q13r.mongodb.net:27017,lth-mongodb-shard-00-02.5q13r.mongodb.net:27017/lth-mongodb?ssl=true&replicaSet=atlas-w7zq03-shard-0&authSource=admin&retryWrites=true&w=majority';
 mongoose.connect(dbURL,{ useNewUrlParser: true, useUnifiedTopology: true })
     .then(()=>app.listen(3000,()=>{
         console.log('Server running...')
     }))
     .catch((err) => console.log(err));
-    
     
 app.set('view engine', 'ejs');
 
@@ -77,8 +77,6 @@ app.post('/blogs',(req,res)=>{
         })
 });
 
-
-
 app.get('/blogs/:id',(req,res)=>{
     const id = req.params.id;
     Blog.findById(id)
@@ -90,3 +88,15 @@ app.get('/blogs/:id',(req,res)=>{
         });
 });
 
+
+app.delete('/blogs/:id', (req, res) => {
+    const id = req.params.id;
+    
+    Blog.findByIdAndDelete(id)
+      .then(result => {
+        res.json({ redirect: '/blogs' });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+});

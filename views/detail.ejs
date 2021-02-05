@@ -8,14 +8,28 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title> <%= blog.title %> </title>
+    <title> Detail</title>
   </head>
   <body>
     <h3> <%= blog.title %> </h3>
     <h5>By <%= blog.author %> </h5>
     <p> <%= blog.content %> </p>
+    <p>id : <%= blog.id %> </p>
+    <a class="delete" data-doc="<%= blog._id%>">delete</a>
     
+    <script>
+      const btn = document.querySelector('a.delete');
 
-  
+      btn.addEventListener('click',(e)=>{
+        const endpoint = `/blogs/${btn.dataset.doc}`;
+        console.log(endpoint);
+        fetch(endpoint, {
+          method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(data =>console.log(data))
+          .catch(err => console.log(err));
+      });
+    </script>
   </body>
 </html>
